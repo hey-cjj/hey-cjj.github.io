@@ -12,6 +12,14 @@ const papers = [
  {sortDate:'2023-06-09',year:2024,venue:'Nature Methods, 2024',lead:false,title:'EfficientBioAI: making bioimaging AI models efficient in energy and latency',authors:'Yu Zhou, Jiajun Cao, Justin Sonneck, Sweta Banerjee, Stefanie Dörr, Anika Grüneboom, Kristina Lorenz, Shanghang Zhang, Jianxu Chen',image:'efficientbioai.png',paper:'https://doi.org/10.1038/s41592-024-02167-z',code:'https://github.com/MMV-Lab/EfficientBioAI'}
 ];
 papers.sort((a,b)=>b.sortDate.localeCompare(a.sortDate));
+const newsToggle=document.querySelector('#news-toggle');
+const olderNews=[...document.querySelectorAll('#news-list li')].slice(5);
+newsToggle.addEventListener('click',()=>{
+ const expanded=newsToggle.getAttribute('aria-expanded')!=='true';
+ olderNews.forEach(item=>{item.hidden=!expanded;});
+ newsToggle.setAttribute('aria-expanded',String(expanded));
+ newsToggle.textContent=expanded?'Show less':'Show more';
+});
 const container=document.querySelector('#papers');
 for(const paper of papers){
  const article=document.createElement('article');article.className='paper'+(paper.image?'':' text-only');article.dataset.lead=paper.lead;
